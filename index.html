@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triveni Mess Menu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+     <img src="logo.webp" alt="Triveni Mess Logo" class="logo">
+    <h1>Triveni Mess Menu</h1>
+    <nav style="font-size: 20px; color: #007bff;">
+        <style>
+            nav button:hover {
+                background-color: #0056b3;
+                color: white;
+                transition: 0.3s;
+            }
+            </style>
+        <button onclick="showMenu('today')">Today's Menu</button>
+        <button onclick="showMenu('week')">Weekly Menu</button>
+        <button onclick="showLoginForm()">Login</button>
+    </nav>
+</header>
+
+<main>
+    <div id="analog-clock">
+        <div class="center-circle"></div>
+        <div class="hand hour" id="hour"></div>
+        <div class="hand minute" id="minute"></div>
+        <div class="hand second" id="second"></div>
+    </div>    
+    <div id="leaderboard">
+        <h2>Top Rated Meals</h2>
+        <ul id="top-rated"></ul>
+        <h2 id="currentDate"></h2>
+    </div>
+    <section id="login-form" style="display: none;">
+        <h2>User Login</h2>
+        <label>Username:</label>
+        <input type="text" id="username" placeholder="Enter Username">
+        <br>
+        <label>Password:</label>
+        <input type="password" id="password" placeholder="Enter Password">
+        <br>
+        <button onclick="loginUser()">Login</button>
+    </section>
+
+    <section id="today-menu">
+        <h2>Friday, March 7, 2025</h2>
+        <table>
+            <tr>
+                <th>Meals</th>
+                <th>Time</th>
+                <th>Menu</th>
+                <th>Rate</th>
+            </tr>
+            <tr>
+                <td>Breakfast</td>
+                <td>After 8:30 am</td>
+                <td>Aloo Paratha, Curd, Tea</td>
+                <td><button onclick="openFeedbackForm('Breakfast')">Rate</button></td>
+            </tr>
+            <tr>
+                <td>Lunch</td>
+                <td>1:00 pm</td>
+                <td>Dal Tadka, Jeera Rice, Paneer Butter Masala</td>
+                <td><button onclick="openFeedbackForm('Lunch')">Rate</button></td>
+            </tr>
+            <tr>
+                <td>Dinner</td>
+                <td>7:00 pm</td>
+                <td>Chicken Curry, Naan, Salad</td>
+                <td><button onclick="openFeedbackForm('Dinner')">Rate</button></td>
+            </tr>
+        </table>
+    </section>
+    <section id="weekly-menu" style="display: none;">
+        <h2>Weekly Menu</h2>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Breakfast</th>
+                        <th>Lunch</th>
+                        <th>Dinner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Monday</td>
+                        <td>Puri Bhaji</td>
+                        <td>Dal Makhani, Jeera Rice</td>
+                        <td>Butter Chicken, Naan</td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday</td>
+                        <td>Idli, Sambar</td>
+                        <td>Chole Bhature</td>
+                        <td>Paneer Tikka, Roti</td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday</td>
+                        <td>Poha, Sev</td>
+                        <td>Rajma Chawal</td>
+                        <td>Egg Curry, Chapati</td>
+                    </tr>
+                    <tr>
+                        <td>Thursday</td>
+                        <td>Aloo Paratha, Curd</td>
+                        <td>Dal Tadka, Jeera Rice, Roti</td>
+                        <td>Chicken Curry, Naan, Salad</td>
+                    </tr>
+                    <tr>
+                        <td>Friday</td>
+                        <td>Masala Dosa, Chutney</td>
+                        <td>Vegetable Biryani, Raita</td>
+                        <td>Fish Curry, Rice</td>
+                    </tr>
+                    <tr>
+                        <td>Saturday</td>
+                        <td>Pancakes, Honey</td>
+                        <td>Pav Bhaji</td>
+                        <td>Pulao, Paneer Masala</td>
+                    </tr>
+                    <tr>
+                        <td>Sunday</td>
+                        <td>Upma, Tea</td>
+                        <td>Dal Fry, Roti</td>
+                        <td>Kadhi Chawal</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="feedback-form" style="display: none;">
+        <h2>Feedback</h2>
+        <p id="meal-name"></p>
+        <label>Rating:</label>
+        <select id="rating">
+            <option value="1">⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="3">⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="5">⭐⭐⭐⭐⭐</option>
+        </select>
+        <br>
+        <textarea id="feedback" placeholder="Write your feedback..."></textarea>
+        <br>
+        <button onclick="submitFeedback()">Submit</button>
+    </section>
+    <section class="gallery">
+        <h2>Mess Meal Gallery</h2>
+        <div class="images">
+            <img src="breakfast.webp" alt="Breakfast">
+            <img src="lunch.webp" alt="Lunch">
+            <img src="dinner.webp" alt="Dinner">
+        </div>
+    </section>
+    
+    <div class="mess-bill">
+        <h2>Mess Bill</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Meal</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody id="bill-table">
+            <!-- Bill Data will be added here by JavaScript -->
+          </tbody>
+        </table>
+        <h3>Total Bill: ₹<span id="total-bill">0</span></h3>
+      </div>
+      
+</main>
+
+<script>
+let ratings = [];
+let users = [{ username: "admin", password: "1234" }];
+
+function showMenu(menuType) {
+    document.getElementById('today-menu').style.display = menuType === 'today' ? 'block' : 'none';
+    document.getElementById('weekly-menu').style.display = menuType === 'week' ? 'block' : 'none';
+}
+
+function showLoginForm() {
+    document.getElementById('login-form').style.display = 'block';
+}
+
+function loginUser() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const user = users.find(u => u.username === username && u.password === password);
+    if (user) {
+        alert('Login Successful!');
+        document.getElementById('login-form').style.display = 'none';
+    } else {
+        alert('Invalid Credentials!');
+    }
+}
+
+function openFeedbackForm(meal) {
+    document.getElementById('feedback-form').style.display = 'block';
+    document.getElementById('meal-name').innerText = 'Meal: ' + meal;
+}
+
+function submitFeedback() {
+    const meal = document.getElementById('meal-name').innerText.replace('Meal: ', '');
+    const rating = parseInt(document.getElementById('rating').value);
+    ratings.push({ meal, rating });
+    alert('Thank you for your feedback!');
+    document.getElementById('feedback-form').style.display = 'none';
+    updateLeaderboard();
+}
+
+function updateLeaderboard() {
+    const leaderboard = document.getElementById('top-rated');
+    leaderboard.innerHTML = '';
+
+    let mealRatings = {};
+    ratings.forEach(({ meal, rating }) => {
+        if (!mealRatings[meal]) {
+            mealRatings[meal] = { total: 0, count: 0 };
+        }
+        mealRatings[meal].total += rating;
+        mealRatings[meal].count++;
+    });
+
+    const sortedMeals = Object.entries(mealRatings)
+        .map(([meal, { total, count }]) => ({ meal, average: total / count }))
+        .sort((a, b) => b.average - a.average);
+
+    sortedMeals.forEach(({ meal, average }) => {
+        const li = document.createElement('li');
+        li.textContent = `${meal} - ⭐ ${average.toFixed(1)}`;
+        leaderboard.appendChild(li);
+    });
+}
+</script>
+<div class="wave"></div>
+<div class="wave"></div>
+</body>
+</html>
